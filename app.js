@@ -77,7 +77,7 @@ app.use('/api/v1/spent-type', spentTypeRouter);
 app.use('/api/v1/report', reportRouter);
 
 app.all('*', (req, res, next) => {
-  return res.redirect('http://localhost:3200/');
+  return res.redirect('http://leve-production.up.railway.app/');
   // return next(
   //   new AppError(`Can't find ${req.originalUrl} on this server!`, 404)
   // );
