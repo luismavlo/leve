@@ -43,12 +43,12 @@ const Client = db.define('client', {
   },
 });
 
-db.query("SELECT setval(pg_get_serial_sequence('clients', 'id'), 81, false);")
-  .then(() => {
-    console.log('Secuencia reiniciada exitosamente.');
-  })
-  .catch(error => {
-    console.error('Error al reiniciar la secuencia:', error);
-  });
+// db.query("SELECT setval(pg_get_serial_sequence('clients', 'id'), 81, false);")
+//   .then(() => {
+//     console.log('Secuencia reiniciada exitosamente.');
+//   })
+//   .catch(error => {
+//     console.error('Error al reiniciar la secuencia:', error);
+//   });
 
 module.exports = Client;
