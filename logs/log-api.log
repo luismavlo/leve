@@ -246,3 +246,11 @@ info: Missing where attribute in the options parameter {"code":"ERR_ASSERTION","
 [2023-06-30T16:44:07.615Z] info Can't find /assets/img/login/balloon-lg.jpg on this server! undefined:undefined
 [2023-06-30T16:44:07.617Z] info Can't find /assets/img/login/balloon.jpg on this server! undefined:undefined
 [2023-06-30T16:44:07.638Z] info Can't find /font/nunito/nunito-regular.ttf on this server! undefined:undefined
+[2023-07-06T13:18:21.707Z] info You are not logged in! Please log in to get access undefined:undefined
+[2023-07-06T13:19:29.353Z] info Unexpected token } in JSON at position 52 undefined:undefined
+[2023-07-06T13:19:48.712Z] info You are not logged in! Please log in to get access undefined:undefined
+[2023-07-06T13:19:55.869Z] info Incorrect email or password undefined:undefined
+[2023-07-06T13:20:03.368Z] info Incorrect email or password undefined:undefined
+[2023-07-06T13:20:08.711Z] info Incorrect email or password undefined:undefined
+[2023-07-06T13:20:22.585Z] info Incorrect email or password undefined:undefined
+[2023-07-06T13:21:23.626Z] info The email user already exists undefined:undefined
