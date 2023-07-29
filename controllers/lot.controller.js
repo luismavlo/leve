@@ -31,6 +31,7 @@ exports.findAll = catchAsync(async (req, res, next) => {
     ],
     limit,
     offset,
+    order: [['createdAt', 'DESC']],
   });
 
   const pages = Math.ceil(lot.count / limit); // Se calcula la cantidad de páginas según la cantidad total de elementos y el límite por página.

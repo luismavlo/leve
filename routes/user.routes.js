@@ -1,47 +1,148 @@
-const { Router } = require('express');
-const {
-  updateUser,
-  deleteUser,
-  findUsers,
-  findUser,
-  updatePassword,
-} = require('../controllers/users.controller');
-const {
-  protect,
-  protectAccountOwner,
-} = require('../middlewares/auth.middleware');
-const { validIfExistUser } = require('../middlewares/user.middleware');
-const {
-  updateUserValidation,
-  updatePasswordUserValidation,
-} = require('../middlewares/validations.middleware');
+const Repair = require('./../models/models.repairs');
 
-const router = Router();
+exports.findAllRepair = async (req, res) => {
+  try {
+    const repairs = await Repair.findAll({ where: { status: 'pending' } });
 
-router.get('/', findUsers);
+    return res.status(200).json({
+      status: 'success',
+      repairs,
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      status: 'fail',
+      message: 'Internal server error',
+      error,
+    });
+  }
+};
 
-router.get('/:id', validIfExistUser, findUser);
+exports.createRepair = async (req, res) => {
+  try {
+    const { date, usersId } = req.body;
 
-router.use(protect);
+    const repair = await Repair.create({
+      date,
+      usersId,
+    });
 
-router.patch(
-  '/:id',
-  updateUserValidation,
-  validIfExistUser,
-  protectAccountOwner,
-  updateUser
-);
+    return res.status(201).json({
+      status: 'success',
+      message: 'Repair created',
+      repair,
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      status: 'fail',
+      message: 'Internal server error',
+      error,
+    });
+  }
+};
 
-router.patch(
-  '/password/:id',
-  updatePasswordUserValidation,
-  validIfExistUser,
-  protectAccountOwner,
-  updatePassword
-);
+exports.findOneRepair = async (req, res) => {
+  try {
+    const { id } = req.params;
 
-router.delete('/:id', validIfExistUser, protectAccountOwner, deleteUser);
+    const repair = await Repair.findOne({
+      where: {
+        id,
+        status: 'pending',
+      },
+    });
 
-module.exports = {
-  usersRouter: router,
+    if (!repair) {
+      return res.status(404).json({
+        status: 'error',
+        message: 'Repair not found',
+      });
+    }
+
+    return res.status(200).json({
+      status: 'success',
+      message: 'Repair found',
+      repair,
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      status: 'fail',
+      message: 'Internal server error',
+      error,
+    });
+  }
+};
+
+exports.updateRepair = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { status } = req.body;
+
+    const repair = await Repair.findOne({
+      where: {
+        id,
+        status: 'pending',
+      },
+    });
+
+    if (!repair) {
+      return res.status(404).json({
+        status: 'error',
+        message: 'Repair not found',
+      });
+    }
+
+    await repair.update({ status: 'completed' });
+
+    return res.status(200).json({
+      status: 'success',
+      message: 'Repair updated',
+      repair,
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      status: 'fail',
+      message: 'Internal server error',
+      error,
+    });
+  }
+};
+
+exports.deleteRepair = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { status } = req.body;
+
+    const repair = await Repair.findOne({
+      where: {
+        id,
+        status: 'pending',
+      },
+    });
+
+    if (!repair) {
+      return res.status(404).json({
+        status: 'error',
+        message: 'Repair not found',
+      });
+    }
+
+    await repair.update({ status: 'cancelled' });
+
+    return res.status(200).json({
+      status: 'success',
+      message: 'Repair cancelled',
+      repair,
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      status: 'fail',
+      message: 'Internal server error',
+      error,
+    });
+  }
 };
